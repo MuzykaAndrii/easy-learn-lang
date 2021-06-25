@@ -1,7 +1,8 @@
 import os
 
 class Config:
-    token = os.getenv('BOT_TOKEN')
+    TOKEN = os.getenv('BOT_TOKEN')
+    WEBHOOK = os.getenv('WEBHOOK', 'https://c7864313cf3e.ngrok.io')
 
 class DevConfig(Config):
     DEBUG = True
