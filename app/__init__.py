@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_sqlalchemy import SQLAlchemy
 import telebot
 import config
 import os
@@ -8,6 +9,9 @@ app = Flask(__name__)
 #gather configs
 env_config = os.getenv('APP_SETTINGS', config.DevConfig)
 app.config.from_object(env_config)
+
+from config import metadata
+db = SQLAlchemy(app, metadata=metadata)
 
 #init bot
 bot = telebot.TeleBot(app.config['TOKEN'], threaded=False)
@@ -21,4 +25,3 @@ def webhook():
 
 from app import web
 from app.t_bot import *
-
