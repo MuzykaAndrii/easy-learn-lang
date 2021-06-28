@@ -12,7 +12,12 @@ class DbMixin(object):
 class User(DbMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
     telegram_id = db.Column(db.Integer, unique=True, nullable=False)
+    bundles = db.relationship('Bundle', backref='creator', lazy='dynamic')
 
     def __init__(self, telegram_id):
         self.telegram_id = telegram_id
-    
+
+class Bundle(DbMixin, db.Model):
+    id = db.Column(db.Integer, primary_key = True, autoincrement=True)
+    creator_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    words = db.Column(db.Text)

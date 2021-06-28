@@ -21,8 +21,11 @@ class DevConfig(Config):
     DEBUG = True
     SECRET_KEY = 'SuperSecretString'
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'app.db'))
+    CACHE_TYPE = 'filesystem'
+    CACHE_DIR = 'cache/'
 
 class ProdConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', '')
     SECRET_KEY = os.getenv('SECRET_KEY', 'uyzdkgruyvgkxudyrgvkydgkruyfgkdzyrgkfygvkdrygvk')
+    CACHE_TYPE = 'SimpleCache'
