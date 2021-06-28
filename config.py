@@ -14,18 +14,16 @@ metadata = MetaData(naming_convention=convention)
 
 class Config:
     TOKEN = os.getenv('BOT_TOKEN')
-    WEBHOOK = os.getenv('WEBHOOK', 'https://c7864313cf3e.ngrok.io')
+    WEBHOOK = os.getenv('WEBHOOK')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    CACHE_TYPE = 'SimpleCache'
 
 class DevConfig(Config):
     DEBUG = True
     SECRET_KEY = 'SuperSecretString'
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///' + os.path.join(basedir, 'app.db'))
-    CACHE_TYPE = 'filesystem'
-    CACHE_DIR = 'cache/'
 
 class ProdConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', '')
     SECRET_KEY = os.getenv('SECRET_KEY', 'uyzdkgruyvgkxudyrgvkydgkruyfgkdzyrgkfygvkdrygvk')
-    CACHE_TYPE = 'SimpleCache'
