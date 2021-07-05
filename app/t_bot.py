@@ -18,7 +18,7 @@ def send_token(message):
 @bot.message_handler(commands=['create_bundle'])
 @manage_user
 def create_bundle(message):
-    keyboard = types.ReplyKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     end_btn = types.KeyboardButton(text='Save and exit')
     keyboard.add(end_btn)
 
@@ -32,7 +32,8 @@ def set_word(message, words):
         new_bundle = Bundle(message.chat.id)
         new_bundle.encode_words(words)
         new_bundle.save()
-        bot.send_message(message.chat.id, "Words successfully saved, link: {}{}".format(app.config['WEBHOOK'] ,url_for('get_bundle', user_id=message.chat.id, bundle_id=new_bundle.id)), reply_markup=ReplyKeyboardRemove())
+        link = app.config['WEBHOOK'] + url_for('get_bundle', user_id=message.chat.id, bundle_id=new_bundle.id)
+        bot.send_message(message.chat.id, f"Words successfully saved, link: {link}", reply_markup=None)
         return
     
     input_data = message.text.split('-')
@@ -40,6 +41,7 @@ def set_word(message, words):
     translation = input_data[1].strip()
     words[word] = translation
 
+    msg =  bot.send_message(message.chat.id, "Okay, wanna to add one more? Just write it)")
     bot.register_next_step_handler(msg, lambda m: set_word(m, words))
 
 @bot.message_handler(commands=['web'])
