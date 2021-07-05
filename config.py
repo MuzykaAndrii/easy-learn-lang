@@ -25,5 +25,5 @@ class DevConfig(Config):
 
 class ProdConfig(Config):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', '')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI', '')
     SECRET_KEY = os.getenv('SECRET_KEY', 'uyzdkgruyvgkxudyrgvkydgkruyfgkdzyrgkfygvkdrygvk')
