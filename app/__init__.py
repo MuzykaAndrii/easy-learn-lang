@@ -22,7 +22,7 @@ migrate = Migrate(app, db)
 
 #init bot
 bot = telebot.TeleBot(app.config['TOKEN'], threaded=False)
-bot.set_webhook(url=app.config['WEBHOOK'])
+#bot.set_webhook(url=app.config['WEBHOOK'])
 
 #config root route to set certain webhook address
 @app.route("/", methods=["POST"])
