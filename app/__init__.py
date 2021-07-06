@@ -6,10 +6,10 @@ import telebot
 import config
 import os
 
-#init bot
-bot = telebot.TeleBot(app.config['TOKEN'])
 #init flask app
 app = Flask(__name__)
+#init bot
+bot = telebot.TeleBot(app.config['TOKEN'])
 
 #gather configs
 env_config = os.getenv('APP_SETTINGS', config.DevConfig)
