@@ -40,5 +40,5 @@ def webhook():
 from app.t_bot import *
 from app import web
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
