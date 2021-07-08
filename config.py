@@ -16,7 +16,7 @@ class Config:
     TOKEN = os.getenv('BOT_TOKEN')
     WEBHOOK = os.getenv('WEBHOOK')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    CACHE_TYPE = 'SimpleCache'
+    CACHE_TYPE = 'FileSystemCache'
 
 class DevConfig(Config):
     DEBUG = True
