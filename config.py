@@ -17,6 +17,7 @@ class Config:
     WEBHOOK = os.getenv('WEBHOOK')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CACHE_TYPE = 'FileSystemCache'
+    CACHE_DIR = '/cache'
 
 class DevConfig(Config):
     DEBUG = True
