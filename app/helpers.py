@@ -2,7 +2,7 @@ from functools import wraps
 from app.models import User
 from app import cache
 
-@cache.memoize(600)
+# @cache.memoize(600)
 def get_user(user_telegram_id):
     print('Executed query to database')
     return User.query.filter_by(telegram_id=user_telegram_id).first()
