@@ -54,3 +54,6 @@ def set_word(message):
 def get_web(message):
 
     bot.send_message(message.chat.id, "The web application of our project")
+
+bot.enable_save_next_step_handlers(delay=2)
+bot.load_next_step_handlers()
