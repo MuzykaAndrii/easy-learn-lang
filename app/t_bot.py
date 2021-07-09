@@ -5,6 +5,8 @@ from telebot import types
 from app import cache as storage
 from flask import url_for
 
+words = dict()
+
 @bot.message_handler(commands=['start', 'help'])
 @manage_user
 def start_command(message):
@@ -23,15 +25,15 @@ def create_bundle(message):
     keyboard.add(end_btn)
 
     msg = bot.send_message(message.chat.id, "Send me word and translation in format: word - translation\nTo save all words send me '!end'", reply_markup=keyboard)
-    words = dict()
-    bot.register_next_step_handler(msg, lambda m: set_word(m, words))
+    bot.register_next_step_handler(msg, set_word)
 
-def set_word(message, words):
+def set_word(message):
     if message.text == 'Save and exit':
         print(words)
         new_bundle = Bundle(message.chat.id)
         new_bundle.encode_words(words)
         new_bundle.save()
+        words.clear()
         link = app.config['WEBHOOK'] + url_for('get_bundle', user_id=message.chat.id, bundle_id=new_bundle.id)
         # removes kayboard
         markup = types.ReplyKeyboardRemove(selective=False)
@@ -44,7 +46,7 @@ def set_word(message, words):
     words[word] = translation
 
     msg =  bot.send_message(message.chat.id, "Okay, wanna to add one more? Just write it)")
-    bot.register_next_step_handler(msg, lambda m: set_word(m, words))
+    bot.register_next_step_handler(msg, set_word)
 
 @bot.message_handler(commands=['web'])
 @manage_user
