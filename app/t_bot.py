@@ -30,11 +30,12 @@ def create_bundle(message):
 def set_word(message):
     if message.text == 'Save and exit':
         print(words)
-        new_bundle = Bundle(message.chat.id)
+        user = User.query.filter_by(telegram_id=message.chat.id).first()
+        new_bundle = Bundle(user.id)
         new_bundle.encode_words(words)
         new_bundle.save()
         words.clear()
-        link = app.config['WEBHOOK'] + url_for('get_bundle', user_id=message.chat.id, bundle_id=new_bundle.id)
+        link = app.config['WEBHOOK'] + url_for('get_bundle', user_id=user.id, bundle_id=new_bundle.id)
         # removes kayboard
         markup = types.ReplyKeyboardRemove(selective=False)
         bot.send_message(message.chat.id, f"Words successfully saved, link: {link}", reply_markup=markup)
