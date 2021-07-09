@@ -13,7 +13,7 @@ env_config = os.getenv('APP_SETTINGS', config.DevConfig)
 app.config.from_object(env_config)
 
 #init bot
-bot = telebot.TeleBot(app.config['TOKEN'], threaded=False)
+bot = telebot.TeleBot(app.config['TOKEN'])
 bot.enable_save_next_step_handlers(delay=0)
 bot.load_next_step_handlers()
 
