@@ -14,6 +14,8 @@ app.config.from_object(env_config)
 
 #init bot
 bot = telebot.TeleBot(app.config['TOKEN'], threaded=False)
+bot.enable_save_next_step_handlers(delay=0)
+bot.load_next_step_handlers()
 
 #cache instance
 cache = Cache(app)
