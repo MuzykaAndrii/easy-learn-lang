@@ -33,7 +33,9 @@ def set_word(message, words):
         new_bundle.encode_words(words)
         new_bundle.save()
         link = app.config['WEBHOOK'] + url_for('get_bundle', user_id=message.chat.id, bundle_id=new_bundle.id)
-        bot.send_message(message.chat.id, f"Words successfully saved, link: {link}", reply_markup=None)
+        # removes kayboard
+        markup = types.ReplyKeyboardRemove(selective=False)
+        bot.send_message(message.chat.id, f"Words successfully saved, link: {link}", reply_markup=markup)
         return
     
     input_data = message.text.split('-')

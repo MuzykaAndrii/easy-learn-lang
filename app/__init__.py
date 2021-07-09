@@ -13,7 +13,7 @@ env_config = os.getenv('APP_SETTINGS', config.DevConfig)
 app.config.from_object(env_config)
 
 #init bot
-bot = telebot.TeleBot(app.config['TOKEN'])
+bot = telebot.TeleBot(app.config['TOKEN'], threaded=False)
 
 #cache instance
 cache = Cache(app)
