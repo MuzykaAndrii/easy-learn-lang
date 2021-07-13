@@ -13,7 +13,7 @@ env_config = os.getenv('APP_SETTINGS', config.DevConfig)
 app.config.from_object(env_config)
 
 #init bot
-bot = telebot.TeleBot(app.config['TOKEN'])
+bot = telebot.TeleBot(app.config['TOKEN'], threaded=False)
 bot.enable_save_next_step_handlers(delay=0)
 bot.load_next_step_handlers()
 
@@ -43,4 +43,4 @@ from app.t_bot import *
 from app import web
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+    app.run(threaded=False, processes=1)
